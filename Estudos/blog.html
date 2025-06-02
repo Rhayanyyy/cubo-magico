@@ -9,10 +9,8 @@
       margin: 0; padding: 0; box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, sans-serif;
     }
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    html, body {
+      height: 100%;
       background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,30,30,0.6)),
                   url('https://media.discordapp.net/attachments/1376561524939686031/1378855877246976161/IMG_1655.jpg?ex=683e1f1b&is=683ccd9b&hm=f006e5c10fd10c43b901723b85292aaa1917dccfa27c321532687131713b92d1&=&format=webp');
       background-repeat: no-repeat;
@@ -21,6 +19,12 @@
       background-position: center center;
       background-blend-mode: overlay;
       color: #e0e0e0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
       padding: 1rem;
     }
     header {
@@ -48,6 +52,7 @@
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
     .btn-voltar:hover {
       background-color: rgba(255,255,255,0.25);
@@ -56,13 +61,14 @@
     }
     main {
       max-width: 700px;
-      margin: 1rem auto 3rem;
+      margin: 1rem auto;
       padding: 1rem 2rem;
       background: rgba(255,255,255,0.08);
       border-radius: 20px;
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,0.2);
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      flex-grow: 1;
     }
     footer {
       text-align: center;
@@ -79,7 +85,7 @@
 </head>
 <body>
   <header>
-    <a href="index.html" class="btn-voltar" title="Voltar para página inicial">← Voltar</a>
+    <a class="btn-voltar" onclick="history.back()" title="Voltar para página anterior">← Voltar</a>
     <span>📚 Blog de Estudos</span>
   </header>
   <main>
