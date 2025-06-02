@@ -250,4 +250,58 @@
     const teclas = document.querySelectorAll(".piano-key");
 
     teclas.forEach(tecla => {
-      tecla.addEventListener
+      tecla.addEventListener("mousedown", () => {
+        const nota = tecla.getAttribute("data-note");
+        tocarNota(notas[nota]);
+        tecla.classList.add("pressed");
+      });
+      tecla.addEventListener("mouseup", () => {
+        tecla.classList.remove("pressed");
+      });
+      tecla.addEventListener("mouseleave", () => {
+        tecla.classList.remove("pressed");
+      });
+    });
+
+    // Para tocar com teclado (opcional)
+    const teclaMap = {
+      'a': 'C4',
+      'w': 'C#4',
+      's': 'D4',
+      'e': 'D#4',
+      'd': 'E4',
+      'f': 'F4',
+      't': 'F#4',
+      'g': 'G4',
+      'y': 'G#4',
+      'h': 'A4',
+      'u': 'A#4',
+      'j': 'B4',
+      'k': 'C5'
+    };
+
+    window.addEventListener('keydown', (e) => {
+      if(e.repeat) return;
+      const nota = teclaMap[e.key];
+      if(nota) {
+        const tecla = [...teclas].find(t => t.getAttribute('data-note') === nota);
+        if(tecla) {
+          tocarNota(notas[nota]);
+          tecla.classList.add('pressed');
+        }
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      const nota = teclaMap[e.key];
+      if(nota) {
+        const tecla = [...teclas].find(t => t.getAttribute('data-note') === nota);
+        if(tecla) {
+          tecla.classList.remove('pressed');
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
