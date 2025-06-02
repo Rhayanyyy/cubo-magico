@@ -3,176 +3,185 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Piano Virtual - Rhay</title>
+<title>Jogo de Piano | Rhay</title>
 <style>
   body {
-    background: #222;
-    color: #eee;
+    margin: 0;
     font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #222, #444);
+    color: #eee;
     display: flex;
+    height: 100vh;
     flex-direction: column;
+  }
+  /* Botão voltar */
+  #btn-voltar {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    padding: 8px 12px;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    z-index: 1000;
+  }
+  /* Conteúdo principal flexível */
+  .content {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    padding: 20px;
+    gap: 20px;
+  }
+  /* Barra lateral esquerda */
+  .sidebar {
+    width: 280px;
+    background: rgba(30,30,30,0.8);
+    border-radius: 12px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  /* Área da partitura */
+  .score {
+    flex: 1;
+    background: rgba(50,50,50,0.8);
+    border-radius: 12px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 2rem;
+    overflow: auto;
   }
-
-  h1 {
-    margin-bottom: 1rem;
+  .score img {
+    max-width: 100%;
+    max-height: 100%;
+    user-select: none;
   }
-
+  /* Piano fixo na parte inferior */
+  .piano-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    background: rgba(20,20,20,0.95);
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
+  }
+  /* Exemplo simples do piano (teclas brancas e pretas) */
   .piano {
     display: flex;
     position: relative;
     user-select: none;
   }
-
   .key {
-    border: 1px solid #333;
-    border-radius: 0 0 6px 6px;
-    height: 160px;
     width: 40px;
-    margin: 0 1px;
+    height: 160px;
+    border: 1px solid #000;
+    border-radius: 0 0 8px 8px;
     background: white;
-    box-shadow: 0 4px 8px #0003 inset;
-    cursor: pointer;
+    margin-right: 2px;
     position: relative;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.3);
+    cursor: pointer;
     z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    font-size: 12px;
-    color: #333;
   }
-
   .key.black {
-    background: black;
+    width: 26px;
     height: 100px;
-    width: 28px;
-    margin: 0 -14px 0 -14px;
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 28px;
+    margin-right: 0;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.7);
     z-index: 2;
-    border-radius: 0 0 4px 4px;
-    color: #eee;
+    cursor: pointer;
   }
-
-  .key.pressed {
-    background: #7fdbff;
-    box-shadow: 0 0 15px #7fdbff;
-  }
-
-  .explanation {
-    margin-top: 2rem;
-    max-width: 600px;
-    text-align: center;
-    line-height: 1.5;
-    font-size: 1rem;
-    background: rgba(255 255 255 / 0.1);
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    user-select: text;
-  }
+  /* Posicionamento das teclas pretas */
+  .key.black:nth-of-type(2) { left: 68px; }
+  .key.black:nth-of-type(4) { left: 110px; }
+  .key.black:nth-of-type(7) { left: 194px; }
+  .key.black:nth-of-type(9) { left: 236px; }
+  .key.black:nth-of-type(11){ left: 278px; }
 </style>
 </head>
 <body>
-  <h1>Piano Virtual - Rhay</h1>
 
-  <div class="piano" id="piano">
+<button id="btn-voltar" onclick="window.location.href='index.html'">← Voltar ao Início</button>
+
+<div class="content">
+  <aside class="sidebar">
+    <h2>Como tocar</h2>
+    <p>Use o mouse ou toque nas teclas do piano abaixo para tocar as notas.</p>
+    <p>As teclas brancas representam as notas naturais (Dó, Ré, Mi, etc.).</p>
+    <p>As teclas pretas são os sustenidos e bemóis.</p>
+    <p>Pratique a partitura da 9ª Sinfonia de Beethoven ao lado!</p>
+  </aside>
+
+  <section class="score">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Beethoven_9th_Symphony_-_first_movement_-_score.png/800px-Beethoven_9th_Symphony_-_first_movement_-_score.png" alt="Partitura 9ª Sinfonia de Beethoven">
+  </section>
+</div>
+
+<div class="piano-container">
+  <div class="piano">
     <!-- Teclas brancas -->
-    <div class="key white" data-note="C4">C</div>
-    <div class="key black" data-note="C#4" style="left: 28px; position: absolute; margin: 0;"></div>
-    <div class="key white" data-note="D4">D</div>
-    <div class="key black" data-note="D#4" style="left: 68px; position: absolute; margin: 0;"></div>
-    <div class="key white" data-note="E4">E</div>
-    <div class="key white" data-note="F4">F</div>
-    <div class="key black" data-note="F#4" style="left: 148px; position: absolute; margin: 0;"></div>
-    <div class="key white" data-note="G4">G</div>
-    <div class="key black" data-note="G#4" style="left: 188px; position: absolute; margin: 0;"></div>
-    <div class="key white" data-note="A4">A</div>
-    <div class="key black" data-note="A#4" style="left: 228px; position: absolute; margin: 0;"></div>
-    <div class="key white" data-note="B4">B</div>
-  </div>
+    <div class="key" data-note="C"></div>
+    <div class="key" data-note="D"></div>
+    <div class="key" data-note="E"></div>
+    <div class="key" data-note="F"></div>
+    <div class="key" data-note="G"></div>
+    <div class="key" data-note="A"></div>
+    <div class="key" data-note="B"></div>
 
-  <div class="explanation">
-    <p>Toque as teclas clicando nelas ou usando o teclado do seu computador:</p>
-    <p><strong>Teclas do teclado:</strong> Z=C4, S=C#4, X=D4, D=D#4, C=E4, V=F4, G=F#4, B=G4, H=G#4, N=A4, J=A#4, M=B4</p>
+    <!-- Teclas pretas -->
+    <div class="key black" data-note="C#"></div>
+    <div class="key black" data-note="D#"></div>
+    <div class="key black" data-note="F#"></div>
+    <div class="key black" data-note="G#"></div>
+    <div class="key black" data-note="A#"></div>
   </div>
+</div>
 
 <script>
-  // Mapear teclas do teclado para notas
-  const keyMap = {
-    'z': 'C4',
-    's': 'C#4',
-    'x': 'D4',
-    'd': 'D#4',
-    'c': 'E4',
-    'v': 'F4',
-    'g': 'F#4',
-    'b': 'G4',
-    'h': 'G#4',
-    'n': 'A4',
-    'j': 'A#4',
-    'm': 'B4'
-  };
+  // Aqui você pode adicionar o som das notas
+  // Exemplo: tocar um som ao clicar numa tecla
+  const keys = document.querySelectorAll('.key');
 
-  // Frequências das notas (temperamento igual)
-  const frequencies = {
-    'C4': 261.63,
-    'C#4': 277.18,
-    'D4': 293.66,
-    'D#4': 311.13,
-    'E4': 329.63,
-    'F4': 349.23,
-    'F#4': 369.99,
-    'G4': 392.00,
-    'G#4': 415.30,
-    'A4': 440.00,
-    'A#4': 466.16,
-    'B4': 493.88,
-  };
-
-  // Criar contexto de áudio
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-  const audioCtx = new AudioContext();
-
-  function playNote(freq) {
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
-    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.5);
-  }
-
-  // Tocar nota por nome
-  function tocarNota(nome) {
-    if (!frequencies[nome]) return;
-    playNote(frequencies[nome]);
-    const keyEl = [...document.querySelectorAll('.key')].find(k => k.dataset.note === nome);
-    if (keyEl) {
-      keyEl.classList.add('pressed');
-      setTimeout(() => keyEl.classList.remove('pressed'), 150);
-    }
-  }
-
-  // Clique nas teclas
-  document.getElementById('piano').addEventListener('mousedown', e => {
-    if (e.target.classList.contains('key')) {
-      tocarNota(e.target.dataset.note);
-    }
-  });
-
-  // Usar teclado do PC
-  window.addEventListener('keydown', e => {
-    if (e.repeat) return; // evita repetir nota segurando tecla
-    const note = keyMap[e.key.toLowerCase()];
-    if (note) {
-      tocarNota(note);
-    }
+  keys.forEach(key => {
+    key.addEventListener('mousedown', () => {
+      // Aqui você pode implementar o som da nota key.dataset.note
+      console.log('Tocou nota:', key.dataset.note);
+      key.style.backgroundColor = '#ddd'; // feedback visual simples
+    });
+    key.addEventListener('mouseup', () => {
+      if(key.classList.contains('black')){
+        key.style.backgroundColor = 'black';
+      } else {
+        key.style.backgroundColor = 'white';
+      }
+    });
+    key.addEventListener('mouseleave', () => {
+      if(key.classList.contains('black')){
+        key.style.backgroundColor = 'black';
+      } else {
+        key.style.backgroundColor = 'white';
+      }
+    });
   });
 </script>
+
 </body>
 </html>
