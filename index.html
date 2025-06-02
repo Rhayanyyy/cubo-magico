@@ -183,6 +183,70 @@
         width: 90%;
       }
     }
+    #cubo-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  z-index: 999;
+}
+
+#chat-box {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  overflow: hidden;
+  z-index: 999;
+}
+
+#chat-box.hidden {
+  display: none;
+}
+
+#chat-header {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+#chat-messages {
+  flex-grow: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+#chat-input {
+  border: none;
+  padding: 10px;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
   </style>
 </head>
 <body>
@@ -220,5 +284,47 @@
   <footer>
     <p>© 2025 Rhay</p>
   </footer>
+  <!-- Botão do Cubo GPT -->
+<div id="cubo-btn">🧊</div>
+
+<!-- Janela do Chat -->
+<div id="chat-box" class="hidden">
+  <div id="chat-header">Cubo GPT <span id="close-chat">×</span></div>
+  <div id="chat-messages"></div>
+  <input type="text" id="chat-input" placeholder="Digite sua pergunta..." />
+</div>
+
+<!-- Script do Chat -->
+<script>
+  const btn = document.getElementById("cubo-btn");
+  const chatBox = document.getElementById("chat-box");
+  const closeChat = document.getElementById("close-chat");
+  const input = document.getElementById("chat-input");
+  const messages = document.getElementById("chat-messages");
+
+  btn.onclick = () => {
+    chatBox.classList.toggle("hidden");
+  };
+
+  closeChat.onclick = () => {
+    chatBox.classList.add("hidden");
+  };
+
+  input.addEventListener("keypress", function(e) {
+    if (e.key === "Enter" && input.value.trim() !== "") {
+      const userMessage = input.value;
+      const messageElement = document.createElement("div");
+      messageElement.textContent = "Você: " + userMessage;
+      messages.appendChild(messageElement);
+
+      const botResponse = document.createElement("div");
+      botResponse.textContent = "Cubo GPT: 🤖 Ainda estou aprendendo...";
+      messages.appendChild(botResponse);
+
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
+  });
+</script>
 </body>
 </html>
