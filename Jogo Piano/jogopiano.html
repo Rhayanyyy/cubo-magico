@@ -1,187 +1,253 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Jogo de Piano | Rhay</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #222, #444);
-    color: #eee;
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-  }
-  /* Botão voltar */
-  #btn-voltar {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    padding: 8px 12px;
-    background-color: rgba(0,0,0,0.7);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    z-index: 1000;
-  }
-  /* Conteúdo principal flexível */
-  .content {
-    flex: 1;
-    display: flex;
-    overflow: hidden;
-    padding: 20px;
-    gap: 20px;
-  }
-  /* Barra lateral esquerda */
-  .sidebar {
-    width: 280px;
-    background: rgba(30,30,30,0.8);
-    border-radius: 12px;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    font-size: 0.95rem;
-    line-height: 1.4;
-  }
-  /* Área da partitura */
-  .score {
-    flex: 1;
-    background: rgba(50,50,50,0.8);
-    border-radius: 12px;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
-  }
-  .score img {
-    max-width: 100%;
-    max-height: 100%;
-    user-select: none;
-  }
-  /* Piano fixo na parte inferior */
-  .piano-container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 180px;
-    background: rgba(20,20,20,0.95);
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 10px;
-  }
-  /* Exemplo simples do piano (teclas brancas e pretas) */
-  .piano {
-    display: flex;
-    position: relative;
-    user-select: none;
-  }
-  .key {
-    width: 40px;
-    height: 160px;
-    border: 1px solid #000;
-    border-radius: 0 0 8px 8px;
-    background: white;
-    margin-right: 2px;
-    position: relative;
-    box-shadow: 0 3px 3px rgba(0,0,0,0.3);
-    cursor: pointer;
-    z-index: 1;
-  }
-  .key.black {
-    width: 26px;
-    height: 100px;
-    background: black;
-    position: absolute;
-    top: 0;
-    left: 28px;
-    margin-right: 0;
-    border-radius: 0 0 6px 6px;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.7);
-    z-index: 2;
-    cursor: pointer;
-  }
-  /* Posicionamento das teclas pretas */
-  .key.black:nth-of-type(2) { left: 68px; }
-  .key.black:nth-of-type(4) { left: 110px; }
-  .key.black:nth-of-type(7) { left: 194px; }
-  .key.black:nth-of-type(9) { left: 236px; }
-  .key.black:nth-of-type(11){ left: 278px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jogo Piano | Rhay</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(20,20,20,0.9)), url('https://media.discordapp.net/attachments/1376561524939686031/1378855877246976161/IMG_1655.jpg?ex=683e1f1b&is=683ccd9b&hm=f006e5c10fd10c43b901723b85292aaa1917dccfa27c321532687131713b92d1&=&format=webp') no-repeat center center fixed;
+      background-size: cover;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Container geral do conteúdo acima do piano */
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      padding: 1rem;
+    }
+
+    /* Barra lateral esquerda */
+    .sidebar {
+      width: 280px;
+      background: rgba(30,30,30,0.85);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar button.back-btn {
+      background: #5a4dbd;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: max-content;
+    }
+
+    .sidebar button.back-btn:hover {
+      background: #7c6ee0;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #d1caff;
+    }
+
+    .sidebar p {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #ccc;
+    }
+
+    /* Área central para a partitura */
+    .partitura {
+      flex: 1;
+      margin-left: 20px;
+      background: rgba(25,25,25,0.9);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+      overflow: auto;
+    }
+
+    .partitura img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+
+    /* Piano fixo no rodapé */
+    .piano {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.95);
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 -3px 15px rgba(0,0,0,0.8);
+      z-index: 1000;
+      user-select: none;
+    }
+
+    /* Teclas do piano */
+    .piano-key {
+      width: 60px;
+      height: 180px;
+      margin: 0 3px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: inset 0 -6px 6px rgba(0,0,0,0.4);
+      border: 1px solid #222;
+      cursor: pointer;
+      position: relative;
+      background: white;
+      transition: background 0.2s ease;
+    }
+
+    .piano-key.black {
+      width: 40px;
+      height: 110px;
+      background: black;
+      position: absolute;
+      top: 0;
+      left: 45px;
+      z-index: 2;
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 5px 8px rgba(0,0,0,0.8);
+      margin: 0;
+    }
+
+    .piano-key.pressed {
+      background: #7c6ee0;
+      box-shadow: 0 0 10px #a391ff;
+    }
+
+    /* Container das teclas para posicionar as pretas */
+    .keys-container {
+      position: relative;
+      display: flex;
+      gap: 3px;
+      user-select: none;
+    }
+
+    /* Responsivo */
+    @media (max-width: 700px) {
+      .sidebar {
+        display: none;
+      }
+      .partitura {
+        margin-left: 0;
+      }
+      .piano-key {
+        width: 40px;
+        height: 120px;
+        margin: 0 2px;
+      }
+      .piano-key.black {
+        width: 25px;
+        height: 80px;
+        left: 30px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<button id="btn-voltar" onclick="window.location.href='index.html'">← Voltar ao Início</button>
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <button class="back-btn" onclick="window.location.href='index.html'">← Voltar</button>
+      <h2>Como tocar</h2>
+      <p>
+        Use o mouse ou toque nas teclas do piano abaixo para tocar as notas.<br />
+        As teclas brancas correspondem às notas naturais, as pretas às sustenidos/ bemóis.<br />
+        Experimente tocar a <strong>9ª Sinfonia de Beethoven</strong> pela partitura à direita!
+      </p>
+    </aside>
 
-<div class="content">
-  <aside class="sidebar">
-    <h2>Como tocar</h2>
-    <p>Use o mouse ou toque nas teclas do piano abaixo para tocar as notas.</p>
-    <p>As teclas brancas representam as notas naturais (Dó, Ré, Mi, etc.).</p>
-    <p>As teclas pretas são os sustenidos e bemóis.</p>
-    <p>Pratique a partitura da 9ª Sinfonia de Beethoven ao lado!</p>
-  </aside>
-
-  <section class="score">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Beethoven_9th_Symphony_-_first_movement_-_score.png/800px-Beethoven_9th_Symphony_-_first_movement_-_score.png" alt="Partitura 9ª Sinfonia de Beethoven">
-  </section>
-</div>
-
-<div class="piano-container">
-  <div class="piano">
-    <!-- Teclas brancas -->
-    <div class="key" data-note="C"></div>
-    <div class="key" data-note="D"></div>
-    <div class="key" data-note="E"></div>
-    <div class="key" data-note="F"></div>
-    <div class="key" data-note="G"></div>
-    <div class="key" data-note="A"></div>
-    <div class="key" data-note="B"></div>
-
-    <!-- Teclas pretas -->
-    <div class="key black" data-note="C#"></div>
-    <div class="key black" data-note="D#"></div>
-    <div class="key black" data-note="F#"></div>
-    <div class="key black" data-note="G#"></div>
-    <div class="key black" data-note="A#"></div>
+    <section class="partitura">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Beethoven_Ninth_Symphony_Theme_sheet_music.png" alt="Partitura 9ª Sinfonia de Beethoven" />
+    </section>
   </div>
-</div>
 
-<script>
-  // Aqui você pode adicionar o som das notas
-  // Exemplo: tocar um som ao clicar numa tecla
-  const keys = document.querySelectorAll('.key');
+  <div class="piano" role="application" aria-label="Piano virtual">
+    <div class="keys-container">
+      <!-- Teclas brancas -->
+      <div class="piano-key white" data-note="C4" tabindex="0" aria-label="Dó"></div>
+      <div class="piano-key black" data-note="C#4" style="left: 45px;" aria-label="Dó sustenido"></div>
+      <div class="piano-key white" data-note="D4" tabindex="0" aria-label="Ré"></div>
+      <div class="piano-key black" data-note="D#4" style="left: 105px;" aria-label="Ré sustenido"></div>
+      <div class="piano-key white" data-note="E4" tabindex="0" aria-label="Mi"></div>
+      <div class="piano-key white" data-note="F4" tabindex="0" aria-label="Fá"></div>
+      <div class="piano-key black" data-note="F#4" style="left: 225px;" aria-label="Fá sustenido"></div>
+      <div class="piano-key white" data-note="G4" tabindex="0" aria-label="Sol"></div>
+      <div class="piano-key black" data-note="G#4" style="left: 285px;" aria-label="Sol sustenido"></div>
+      <div class="piano-key white" data-note="A4" tabindex="0" aria-label="Lá"></div>
+      <div class="piano-key black" data-note="A#4" style="left: 345px;" aria-label="Lá sustenido"></div>
+      <div class="piano-key white" data-note="B4" tabindex="0" aria-label="Si"></div>
+      <div class="piano-key white" data-note="C5" tabindex="0" aria-label="Dó (uma oitava acima)"></div>
+    </div>
+  </div>
 
-  keys.forEach(key => {
-    key.addEventListener('mousedown', () => {
-      // Aqui você pode implementar o som da nota key.dataset.note
-      console.log('Tocou nota:', key.dataset.note);
-      key.style.backgroundColor = '#ddd'; // feedback visual simples
-    });
-    key.addEventListener('mouseup', () => {
-      if(key.classList.contains('black')){
-        key.style.backgroundColor = 'black';
-      } else {
-        key.style.backgroundColor = 'white';
-      }
-    });
-    key.addEventListener('mouseleave', () => {
-      if(key.classList.contains('black')){
-        key.style.backgroundColor = 'black';
-      } else {
-        key.style.backgroundColor = 'white';
-      }
-    });
-  });
-</script>
+  <script>
+    // Mapear notas para frequências (exemplo simples)
+    const notas = {
+      "C4": 261.63,
+      "C#4": 277.18,
+      "D4": 293.66,
+      "D#4": 311.13,
+      "E4": 329.63,
+      "F4": 349.23,
+      "F#4": 369.99,
+      "G4": 392.00,
+      "G#4": 415.30,
+      "A4": 440.00,
+      "A#4": 466.16,
+      "B4": 493.88,
+      "C5": 523.25
+    };
 
-</body>
-</html>
+    // Criar contexto de áudio
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Função para tocar nota
+    function tocarNota(freq) {
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      osc.frequency.value = freq;
+      osc.type = "sine";
+
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+      osc.start();
+
+      // Fade out
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1);
+
+      osc.stop(audioCtx.currentTime + 1);
+    }
+
+    // Selecionar todas as teclas
+    const teclas = document.querySelectorAll(".piano-key");
+
+    teclas.forEach(tecla => {
+      tecla.addEventListener
