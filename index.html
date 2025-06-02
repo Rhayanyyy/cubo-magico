@@ -272,7 +272,7 @@
     <section class="glass-card">
       <h2>Blog de Estudos</h2>
       <p>Dicas, resumos e curiosidades para aprender melhor!</p>
-      <a href="Estudos/blog.html" class="btn">Acessar</a>
+      <a href="Estudos/" class="btn">Acessar</a>
     </section>
     <section class="glass-card">
   <h2>Piano Virtual</h2>
@@ -293,38 +293,5 @@
   <div id="chat-messages"></div>
   <input type="text" id="chat-input" placeholder="Digite sua pergunta..." />
 </div>
-
-<!-- Script do Chat -->
-<script>
-  const btn = document.getElementById("cubo-btn");
-  const chatBox = document.getElementById("chat-box");
-  const closeChat = document.getElementById("close-chat");
-  const input = document.getElementById("chat-input");
-  const messages = document.getElementById("chat-messages");
-
-  btn.onclick = () => {
-    chatBox.classList.toggle("hidden");
-  };
-
-  closeChat.onclick = () => {
-    chatBox.classList.add("hidden");
-  };
-
-  input.addEventListener("keypress", function(e) {
-    if (e.key === "Enter" && input.value.trim() !== "") {
-      const userMessage = input.value;
-      const messageElement = document.createElement("div");
-      messageElement.textContent = "Você: " + userMessage;
-      messages.appendChild(messageElement);
-
-      const botResponse = document.createElement("div");
-      botResponse.textContent = "Cubo GPT: 🤖 Ainda estou aprendendo...";
-      messages.appendChild(botResponse);
-
-      input.value = "";
-      messages.scrollTop = messages.scrollHeight;
-    }
-  });
-</script>
 </body>
 </html>
