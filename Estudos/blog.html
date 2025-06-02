@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rhay | Blog de Estudos</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(30, 30, 30, 0.6)),
+      url('https://media.discordapp.net/attachments/1376561524939686031/1378855877246976161/IMG_1655.jpg?ex=683e1f1b&is=683ccd9b&hm=f006e5c10fd10c43b901723b85292aaa1917dccfa27c321532687131713b92d1&=&format=webp');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-blend-mode: overlay;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .post {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 1.5rem;
+      max-width: 700px;
+      width: 100%;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .post h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .post small {
+      color: #ccc;
+    }
+
+    .post p {
+      margin: 1rem 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: scale(1.06);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #ccc;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📝 Blog de Estudos</h1>
+  </header>
+
+  <div class="container">
+
+    <!-- Botão para voltar -->
+    <a href="index.html" class="btn">← Voltar para o início</a>
+
+    <!-- Exemplo de postagem -->
+    <div class="post">
+      <h2>Dicas para estudar melhor</h2>
+      <small>Publicado em 02/06/2025</small>
+      <p>Descubra técnicas simples para melhorar sua concentração, organizar seu tempo e fixar melhor os conteúdos.</p>
+      <a href="#" class="btn">Ler mais</a>
+    </div>
+
+    <!-- Você pode duplicar o bloco acima para mais posts -->
+
+  </div>
+
+  <footer>
+    <p>© 2025 Rhay</p>
+  </footer>
+
+</body>
+</html>
