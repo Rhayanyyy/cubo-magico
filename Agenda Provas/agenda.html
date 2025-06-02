@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agenda de Provas | Rhay</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,30,30,0.6)), url('https://media.discordapp.net/attachments/1376561524939686031/1378855877246976161/IMG_1655.jpg?ex=683e1f1b&is=683ccd9b&hm=f006e5c10fd10c43b901723b85292aaa1917dccfa27c321532687131713b92d1&=&format=webp');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center center;
+      background-blend-mode: overlay;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+
+    header.glass-header {
+      margin: 2rem auto 1rem;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      text-align: center;
+      max-width: 400px;
+      animation: fadeInDown 1s ease forwards;
+    }
+
+    header.glass-header h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #f5f5f5;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 1rem 2rem 3rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .calendar {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      padding: 1rem 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      user-select: none;
+    }
+
+    .calendar .day-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #ccc;
+      text-align: center;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .calendar .day {
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      border-radius: 8px;
+      cursor: default;
+      transition: background-color 0.3s ease;
+    }
+
+    .calendar .day.today {
+      background-color: rgba(100, 80, 180, 0.6);
+      font-weight: 700;
+      color: white;
+    }
+
+    .calendar .day.prova {
+      background-color: rgba(180, 80, 100, 0.8);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .agenda-list {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      padding: 1rem 2rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .agenda-list h2 {
+      margin-bottom: 1rem;
+      color: #fff;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .agenda-list ul {
+      list-style: none;
+    }
+
+    .agenda-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+      color: #ddd;
+    }
+
+    .agenda-list li:last-child {
+      border-bottom: none;
+    }
+
+    form {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      padding: 1rem 2rem;
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    form label {
+      color: #eee;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    form input[type="date"],
+    form input[type="text"] {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    form button {
+      padding: 10px;
+      background-color: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    .btn-voltar {
+      max-width: 400px;
+      margin: 0 auto 2rem;
+      display: block;
+      text-align: center;
+      padding: 10px 18px;
+      background-color: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-voltar:hover {
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #ccc;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: auto;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+  </style>
+</head>
+<body>
+  <header class="glass-header">
+    <h1>📅 Agenda de Provas</h1>
+  </header>
+
+  <a href="javascript:history.back()" class="btn-voltar">← Voltar</a>
+
+  <main>
+    <div class="calendar" id="calendar">
+      <!-- dias e nomes dos dias aqui via JS -->
+    </div>
+
+    <section class="agenda-list" id="agenda-list">
+      <h2>Provas Agendadas</h2>
+      <ul id="prova-list">
+        <!-- lista de provas aqui -->
+      </ul>
+    </section>
+
+    <form id="add-prova-form">
+      <label for="data">Data da Prova:</label>
+      <input type="date" id="data" name="data" required />
+
+      <label for="materia">Matéria:</label>
+      <input type="text" id="materia" name="materia" placeholder="Ex: Matemática" required />
+
+      <button type="submit">Adicionar Prova</button>
+    </form>
+  </main>
+
+  <footer>© 2025 Rhay</footer>
+
+  <script>
+    const calendarEl = document.getElementById('calendar');
+    const listaEl = document.getElementById('prova-list');
+    const form = document.getElementById('add-prova-form');
+
+    let provas = [];
+
+    // Função para formatar data para YYYY-MM-DD
+    function formatDate(date) {
+      return date.toISOString().split('T')[0];
+    }
+
+    // Carregar provas do localStorage
+    function carregarProvas() {
+      const provasSalvas = localStorage.getItem('provasRhay');
+      if(provasSalvas) {
+        provas = JSON.parse(provasSalvas);
+      }
+    }
+
+    // Salvar provas no localStorage
+    function salvarProvas() {
+      localStorage.setItem('provasRhay', JSON.stringify(provas));
+    }
+
+    // Renderizar calendário simples com destaque para dias com prova
+    function renderCalendar() {
+      calendarEl.innerHTML = '';
+
+      const hoje = new Date();
+      const ano = hoje.getFullYear();
+      const mes = hoje.getMonth();
+
+      // nomes dos dias da semana (pt-BR)
+      const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+      // Mostrar os nomes dos dias no topo
+      diasSemana.forEach(dia => {
+        const div = document.createElement('div');
+        div.className = 'day-name';
+        div.textContent = dia;
+        calendarEl.appendChild(div);
+      });
+
+      // Primeiro dia do mês e dia da semana que cai (0=Domingo)
+      const primeiroDia = new Date(ano, mes, 1);
+      const primeiroDiaSemana = primeiroDia.getDay();
+
+      // Quantos dias no mês atual
+      const diasNoMes = new Date(ano, mes + 1, 0).getDate();
+
+      // Espaços vazios antes do primeiro dia para alinhar
+      for(let i = 0; i < primeiroDiaSemana; i++) {
+        const vazio = document.createElement('div');
+        vazio.className = 'day';
+        calendarEl.appendChild(vazio);
+      }
+
+      // Criar cada dia do mês
+      for(let dia = 1; dia <= diasNoMes; dia++) {
+        const dataStr = `${ano}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+        const div = document.createElement('div');
+        div.className = 'day';
+        div.textContent = dia;
+
+        if(dataStr === formatDate(hoje)) {
+          div.classList.add('today');
+        }
+
+        // Se tem prova nesse dia, marca
+        if(provas.some(p => p.data === dataStr)) {
+          div.classList.add('prova');
+          div.title = 'Tem prova(s) neste dia';
+
+          div.addEventListener('click', () => {
+            alert(
+              'Provas em ' + dataStr + ':\n' +
+              provas.filter(p => p.data === dataStr)
+                    .map(p => p.materia)
+                    .join('\n')
+            );
+          });
+        }
+
+        calendarEl.appendChild(div);
+      }
+    }
+
+    // Renderizar lista de provas
+    function renderLista() {
+      if(provas.length === 0) {
+        listaEl.innerHTML = '<li>Nenhuma prova agendada.</li>';
+        return;
+      }
+      // Ordena por data crescente
+      provas.sort((a,b) => a.data.localeCompare(b.data));
+      listaEl.innerHTML = '';
+      provas.forEach(prova => {
+        const li = document.createElement('li');
+        li.textContent = `${prova.data} - ${prova.materia}`;
+        listaEl.appendChild(li);
+      });
+    }
+
+    // Ao enviar formulário, adiciona prova
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const dataInput = form.data.value;
+      const materiaInput = form.materia.value.trim();
+
+      if(!dataInput || !materiaInput) return;
+
+      provas.push({ data: dataInput, materia: materiaInput });
+      salvarProvas();
+      renderCalendar();
+      renderLista();
+
+      form.reset();
+    });
+
+    // Inicialização
+    carregarProvas();
+    renderCalendar();
+    renderLista();
+  </script>
+</body>
+</html>
