@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rhay | Blog de Estudos</title>
+  <title>Rhay | Introdução</title>
   <style>
     * {
       margin: 0;
@@ -12,62 +12,121 @@
       font-family: 'Segoe UI', Tahoma, sans-serif;
     }
 
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
     body {
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(30, 30, 30, 0.6)),
-      url('https://media.discordapp.net/attachments/1376561524939686031/1378855877246976161/IMG_1655.jpg?ex=683e1f1b&is=683ccd9b&hm=f006e5c10fd10c43b901723b85292aaa1917dccfa27c321532687131713b92d1&=&format=webp');
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(30, 30, 30, 0.6)), url('https://media.discordapp.net/attachments/1376561524939686031/1378855877246976161/IMG_1655.jpg?ex=683e1f1b&is=683ccd9b&hm=f006e5c10fd10c43b901723b85292aaa1917dccfa27c321532687131713b92d1&=&format=webp');
+      background-repeat: no-repeat;
       background-size: cover;
       background-attachment: fixed;
-      background-position: center;
+      background-position: center center;
       background-blend-mode: overlay;
     }
 
-    header {
-      text-align: center;
-      padding: 2rem;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(12px);
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: #fff;
-    }
-
-    .container {
+    main {
+      flex-grow: 1; /* Faz main ocupar o espaço disponível */
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
       padding: 2rem;
+      flex-wrap: wrap;
       gap: 2rem;
     }
 
-    .post {
+    @keyframes gradientShift {
+      0% { background-position: center top; }
+      50% { background-position: center bottom; }
+      100% { background-position: center top; }
+    }
+
+    .glass-header {
+      margin: 2rem auto 1rem;
+      padding: 1rem 2rem;
       background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(16px);
       border-radius: 20px;
-      padding: 1.5rem;
-      max-width: 700px;
-      width: 100%;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 400px;
+      animation: fadeInDown 1s ease forwards;
+      position: relative;
+    }
+
+    /* Botão Voltar */
+    .btn-voltar {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 6px 14px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
       color: #fff;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    .btn-voltar:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-50%) scale(1.05);
     }
 
-    .post h2 {
-      margin-bottom: 0.5rem;
+    .glass-header h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #f5f5f5;
     }
 
-    .post small {
-      color: #ccc;
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 320px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      color: #e0e0e0;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s ease forwards;
     }
 
-    .post p {
-      margin: 1rem 0;
+    .glass-card:nth-child(1) {
+      animation-delay: 0.5s;
+    }
+
+    .glass-card:nth-child(2) {
+      animation-delay: 0.8s;
+    }
+
+    .glass-card:hover {
+      transform: scale(1.04);
+      transition: transform 0.3s ease;
+    }
+
+    .glass-card h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #ffffff;
+    }
+
+    .glass-card p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: #d0d0d0;
     }
 
     .btn {
-      display: inline-block;
       padding: 10px 18px;
       background-color: rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -76,6 +135,7 @@
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
+      display: inline-block;
     }
 
     .btn:hover {
@@ -91,36 +151,68 @@
       color: #ccc;
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 1.2s;
+      flex-shrink: 0; /* evita o footer encolher */
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 700px) {
+      body {
+        background-position: center;
+      }
+
+      .glass-card {
+        width: 90%;
+      }
+
+      .glass-header {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>📝 Blog de Estudos</h1>
+  <header class="glass-header">
+    <button class="btn-voltar" onclick="history.back()">← Voltar</button>
+    <h1>👨‍💻 Rhay</h1>
   </header>
 
-  <div class="container">
+  <main>
+    <section class="glass-card">
+      <h2>Meu site</h2>
+      <p>Um site para eu me apresentar ai</p>
+      <a href="Sobre mim/" class="btn">Ver mais</a>
+    </section>
 
-    <!-- Botão para voltar -->
-    <a href="index.html" class="btn">← Voltar para o início</a>
+    <section class="glass-card">
+      <h2>Matérias</h2>
+      <p>As matérias da escola</p>
+      <a href="materias/" class="btn">Entrar</a>
+    </section>
 
-    <!-- Exemplo de postagem -->
-    <div class="post">
-      <h2>Dicas para estudar melhor</h2>
-      <small>Publicado em 02/06/2025</small>
-      <p>Descubra técnicas simples para melhorar sua concentração, organizar seu tempo e fixar melhor os conteúdos.</p>
-      <a href="#" class="btn">Ler mais</a>
-    </div>
-
-    <!-- Você pode duplicar o bloco acima para mais posts -->
-
-  </div>
-
-  <footer>
-    <p>© 2025 Rhay</p>
-  </footer>
-
-</body>
-</html>
+    <section class="glass-card">
+      <h2>Blog de Estudos</h2>
+      <p>Dicas, resumos e curiosidade
