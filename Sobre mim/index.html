@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rhay | Sobre Mim</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(30, 30, 30, 0.6)), 
+        url('https://media.discordapp.net/attachments/1376561524939686031/1378855877246976161/IMG_1655.jpg?ex=683e1f1b&is=683ccd9b&hm=f006e5c10fd10c43b901723b85292aaa1917dccfa27c321532687131713b92d1&=&format=webp');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-blend-mode: overlay;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .spotify-link {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: 0.3s;
+    }
+
+    .spotify-link:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .glass-header {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      color: #f5f5f5;
+    }
+
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      margin: 2rem 0;
+      object-fit: cover;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 280px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      color: #e0e0e0;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .glass-card:hover {
+      transform: scale(1.04);
+    }
+
+    .glass-card h2 {
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .glass-card p {
+      font-size: 0.95rem;
+      color: #d0d0d0;
+    }
+
+    .btn {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 10px 18px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: scale(1.06);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #ccc;
+      background-color: rgba(255, 255, 255, 0.1);
+      width: 100%;
+      margin-top: auto;
+    }
+
+    @media (max-width: 700px) {
+      .glass-card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="https://open.spotify.com/track/0nkzd3yNniB767zSDDdLZ3?si=lYfYUQ-eQDmhOdcnTWMr4A" class="spotify-link" target="_blank" rel="noopener noreferrer">🎵 Minha Música</a>
+
+  <header class="glass-header">
+    <h1>🌟 Sobre Mim</h1>
+  </header>
+
+  <img src="https://media.discordapp.net/attachments/1376561524939686031/1378979644409384990/IMG_1399.jpg?ex=683e925f&is=683d40df&hm=33d4f64bcb3804eaaa66f2e473dddcc220cce2726b7c93249d42a69c12468e0f&=&format=webp&width=499&height=886" alt="Minha Foto" class="profile-pic" />
+
+  <main class="card-container">
+    <section class="glass-card">
+      <h2>Voltar ao Início</h2>
+      <p>Volte para a página principal de matérias.</p>
+      <a href="index.html" class="btn">Ir para o Início</a>
+    </section>
+
+    <section class="glass-card">
+      <h2>Informações</h2>
+      <p>Meu nome é Rhay. Sou estudante, gosto de design, tecnologia e resolver cubos mágicos!</p>
+    </section>
+
+    <section class="glass-card">
+      <h2>Fórmulas do Cubo Mágico</h2>
+      <p>• Cruz: F R U R' U' F'<br>• Canto: U R U' L' U R' U' L<br>• Última camada: R' D' R D</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Rhay</p>
+  </footer>
+</body>
+</html>
