@@ -2,75 +2,121 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mundo Urbano no Século XXI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geografia | Mundo Urbano</title>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      background: url('https://images.unsplash.com/photo-1581322332999-b5c70b1d0662?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(30, 30, 30, 0.6)), url('https://media.discordapp.net/attachments/1376561524939686031/1378855877246976161/IMG_1655.jpg?ex=683e1f1b&is=683ccd9b&hm=f006e5c10fd10c43b901723b85292aaa1917dccfa27c321532687131713b92d1&=&format=webp');
+      background-repeat: no-repeat;
       background-size: cover;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
+      background-attachment: fixed;
+      background-position: center center;
+      background-blend-mode: overlay;
     }
 
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      backdrop-filter: blur(8px);
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: -1;
-    }
-
-    .card {
-      max-width: 900px;
-      margin: 80px auto;
+    .glass-header {
+      margin: 2rem auto 1rem;
+      padding: 1rem 2rem;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       text-align: center;
+      max-width: 600px;
+      animation: fadeInDown 1s ease forwards;
+      color: #f5f5f5;
     }
 
-    h1 {
-      margin-bottom: 20px;
-      font-size: 2rem;
-      color: #e0d4ff;
+    .card-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      flex-grow: 1;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 95%;
+      max-width: 960px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      color: #e0e0e0;
     }
 
     iframe {
       width: 100%;
-      height: 480px;
+      height: 500px;
       border: none;
       border-radius: 12px;
+      margin-top: 1rem;
     }
 
-    .back-button {
+    .btn {
       display: inline-block;
-      margin-top: 30px;
-      padding: 10px 20px;
+      margin-top: 1.5rem;
+      padding: 10px 18px;
       background-color: rgba(255, 255, 255, 0.15);
-      color: white;
-      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 12px;
-      transition: background-color 0.3s ease;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
     }
 
-    .back-button:hover {
-      background-color: rgba(255, 255, 255, 0.3);
+    .btn:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #ccc;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
+  <header class="glass-header">
+    <h1>🌍 Mundo Urbano no Século XXI</h1>
+  </header>
 
-  <div class="card">
-    <h1>Mundo Urbano no Século XXI</h1>
-    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRe8kYKx26B1qAEElvKaVlvbxnGJeIarUJdCBRfBJp6ANak1c4NRo1ktx_9kuMN3A/embed?start=false&loop=false&delayms=3000" allowfullscreen></iframe>
-    <br />
-    <a href="index.html" class="back-button">← Voltar ao início</a>
-  </div>
+  <main class="card-container">
+    <div class="glass-card">
+      <p>Abaixo está a apresentação do trabalho de Geografia:</p>
+      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRe8kYKx26B1qAEElvKaVlvbxnGJeIarUJdCBRfBJp6ANak1c4NRo1ktx_9kuMN3A/embed?start=false&loop=false&delayms=3000" allowfullscreen></iframe>
+      <a href="materias.html" class="btn">← Voltar para Matérias</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Rhay</p>
+  </footer>
 </body>
 </html>
